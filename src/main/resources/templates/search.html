@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>搜索</title>
+	<link rel="stylesheet" href="css/bootstrap-3.3.7.min.css">
+	<link rel='stylesheet' type='text/css' href='js/layer/skin/layer.css'/>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container" th:fragment="search">
+       <div class="col-xs-3 logo text-right">
+           <a th:href="@{/}"><img src="images/logo.png" alt="" ></img></a>
+       </div>
+       <div class="col-xs-9 search">
+           <form class="clearfix" th:action="@{/search}" method="post">
+               <div class="col-xs-10">
+                   <input type="text" class="form-control" name="param" placeholder="区块号 或者 钱包地址 或者 交易hash" required="required">
+               </div>
+               <div class="col-xs-2">
+                   <button type="button" id="search" class="btn btn-default">检索</button>
+               </div>
+           </form>
+       </div>
+       <!-- script -->
+	    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	    <script type="text/javascript" src="js/bootstrap-3.3.7.min.js"></script>
+    	<script type="text/javascript" src="js/layer/layer.js"></script>
+	    <script type="text/javascript">
+	    	$("#search").click(function(){
+	    		if(!/^\d+$/.test($("input[name='param']").val()) && $("input[name='param']").val().indexOf("0x")==-1){
+	    			layer.alert('请输入正确的区块号或者地址！', {
+   	         	  		icon: 5,
+   	         	  		skin: 'layer-ext-moon'
+   	         		})
+    			}else{
+    				$.ajax({
+	   		   	         url:getOrigin()+"/search",
+	   		   	         type:'post',
+	   		   	         data:{"param":$("input[name='param']").val()},
+	   		   	         dataType: "text",
+	   		   	         success: function(obj){
+	   		   	         	if(obj != "error"){
+	   		   	         		var lr = obj.split("?");
+	   		   	         		post(lr[0],{hash: lr[1]});
+	   		   	         			//window.location.href = getOrigin() + obj;
+	   		   	         	}else{
+	   		   	         		layer.alert('请输入正确的区块号或者地址！', {
+	   		   	         	  		icon: 5,
+	   		   	         	  		skin: 'layer-ext-moon'
+	   		   	         		})
+	   		   	         	}
+	   		   	         },
+	   		   	         error: function(){
+	   		   	         }
+	   		   	    });
+    			}
+	    	})
+	    	
+	    	function getOrigin(){
+			    var origin=location.origin;
+			    return origin;
+			}
+	    	
+	    	function post(URL, PARAMS) {
+	    	    var temp = document.createElement("form");
+	    	    temp.action = URL;
+	    	    temp.method = "post";
+	    	    temp.style.display = "none";
+	    	    for (var x in PARAMS) {
+	    	        var opt = document.createElement("textarea");
+	    	        opt.name = x;
+	    	        opt.value = PARAMS[x];
+	    	        temp.appendChild(opt);
+	    	    }
+	    	    document.body.appendChild(temp);
+	    	    temp.submit();
+	    	    return temp;
+	    	}
+	    </script>
+    </div>
+</body>
+</html>

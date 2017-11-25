@@ -1,0 +1,73 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="css/bootstrap-3.3.7.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <nav class="nav">
+        <div th:include="search :: search"></div>
+    </nav>
+    <div class="wrap">
+        <div class="container">
+            <div class="aside col-xs-2" >
+            	<div th:include="left :: left"></div>
+            </div>
+            <div class="main col-xs-10">
+                <div class="panel add_shadow">
+                	<div th:include="top :: top"></div>
+                </div>
+                <h2 class="tit">区块#</h2>
+                <div class="table add_shadow">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>区块号</th>
+                                <th>交易数量</th>
+                                <th>区块生成时间</th>
+                                <th>哈希</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="blockInfo : ${blockInfoList}">
+                                <td th:text="${blockInfo.number}"></td>
+                                <td th:text="${blockInfo.transSize}"></td>
+                                <td th:text="${blockInfo.timestamp}"></td>
+                                <td><a th:href="@{'/blockDetail?hash=' + ${blockInfo.hash}}" th:text="${blockInfo.hash}"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 class="tit">交易#</h2>
+                <div class="table add_shadow">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>交易金额(eth)</th>
+                                <th>交易生成时间</th>
+                                <th>哈希</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="transactionInfo : ${transactionInfoList}">
+                                <td th:text="${transactionInfo.value}"></td>
+                                <td th:text="${transactionInfo.timestamp}"></td>
+                                <td><a th:href="@{'/transactionDetail?hash=' + ${transactionInfo.hash}}" th:text="${transactionInfo.hash}"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- script -->
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</body>
+
+</html>

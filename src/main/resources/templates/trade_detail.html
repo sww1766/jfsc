@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>o2o积分商城-交易详情</title>
+    <link rel="stylesheet" href="css/bootstrap-3.3.7.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <nav class="nav">
+        <div th:include="search :: search"></div>
+    </nav>
+    <div class="wrap">
+        <div class="container">
+            <div class="aside col-xs-2" >
+            	<div th:include="left :: left"></div>
+            </div>
+            <div class="main col-xs-10">
+                <div class="panel add_shadow">
+                	<div th:include="top :: top"></div>
+                </div>
+                <div class="block_detail add_shadow">
+                    <h3>交易详情</h3>
+                    <div class="detail_data">
+                        <dl class="row">
+                            <dt class="col-xs-3">交易哈希：</dt>
+                            <dd class="col-xs-9"><b th:text="${transactionInfo.hash}"></b></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">出账账户地址：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.from}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">入账账户地址：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.to}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">交易序号：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.transactionIndex}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">交易金额(eth)：</dt>
+                            <dd class="col-xs-9"><strong th:text="${transactionInfo.value}"></strong></dd>
+                        </dl>
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-xs-3">区块号：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.blockNumber}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">消耗GAS：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.gas}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">手续费：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.gasPrice}"></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-xs-3">数据包：</dt>
+                            <dd class="col-xs-9" th:text="${transactionInfo.input}"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.JfscMapper">
+	<!-- 查询transaction表最大id+1 -->
+	<select id="getMaxIdFromTransaction" resultType="int" >
+		SELECT IFNULL(MAX(id),0) + 1 maxId FROM transaction
+	</select>
+	
+	<insert id="insertTransaction" parameterType="com.model.Transaction">
+		insert into transaction(id,block_number,transaction_index,hash,time_stamp,fromAccount,toAccount) 
+			values(#{id},#{blockNumber},#{transactionIndex},#{hash},#{timestamp},#{fromAccount},#{toAccount})
+	</insert>
+
+	<select id="getTransByHash" parameterType="string" resultType="com.model.Transaction" >
+		SELECT id,block_number blockNumber,transaction_index transactionIndex,hash,time_stamp timestamp,fromAccount,toAccount from transaction 
+			where hash=#{hash}
+	</select>
+	
+	<select id="getTransByIndex" parameterType="com.model.Query" resultType="com.model.Transaction" >
+		SELECT id,block_number blockNumber,transaction_index transactionIndex,hash,time_stamp timestamp,fromAccount,toAccount from transaction 
+			order by id desc,transaction_index desc limit #{start},#{count}
+	</select>
+	
+	<select id="getTransByAccount" parameterType="string" resultType="com.model.Transaction" >
+		SELECT id,block_number blockNumber,transaction_index transactionIndex,hash,time_stamp timestamp,fromAccount,toAccount from transaction 
+			where fromAccount=#{account} or toAccount=#{account}
+	</select>
+	
+	<select id="getTransactionCounts" resultType="int" >
+		SELECT count(*) counts FROM transaction
+	</select>
+	
+	<select id="getMaxIdFromBlock" resultType="int" >
+		SELECT IFNULL(MAX(id),0) + 1 maxId FROM block
+	</select>
+	
+	<insert id="insertBlock" parameterType="com.model.BlockInfo">
+		insert into block(id,number,hash) values(#{id},#{number},#{hash})
+	</insert>
+	
+	<select id="getBlockByHash" parameterType="string" resultType="com.model.BlockInfo" >
+		SELECT id,number,hash from block where hash=#{hash}
+	</select>
+	
+	<select id="getBlockByIndex" parameterType="com.model.Query" resultType="com.model.BlockInfo" >
+		SELECT id,number,hash from block order by id desc limit #{start},#{count}
+	</select>
+	
+	<select id="getBlockCounts" resultType="int" >
+		SELECT count(*) counts FROM block
+	</select>
+</mapper>

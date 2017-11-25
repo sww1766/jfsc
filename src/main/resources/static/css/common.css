@@ -1,0 +1,57 @@
+body {
+  color: #666;
+  line-height: 1.8;
+  font-family: "microsoft yahei";
+}
+ul,
+ol {
+  padding: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+pre {
+  margin-top: 20px;
+  background: none;
+  border: none;
+}
+input,
+textarea,
+select {
+  background: #fff;
+}
+input::-webkit-input-placeholder {
+  color: #d0d0d0;
+}
+textarea::-webkit-input-placeholder {
+  color: #d0d0d0;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+a {
+  color: inherit;
+}
+a:hover {
+  color: #3a7ceb;
+}
+b {
+  font-weight: normal;
+}
+hr {
+  border-color: #e6e8ec;
+}
+select::-ms-expand {
+  display: none;
+}
+.add_shadow {
+  border: solid 1px #cccccc;
+  box-shadow: 5px 5px 5px rgba(204, 204, 204, 0.35);
+}

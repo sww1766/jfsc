@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>搜索</title>
+	<link rel="stylesheet" href="css/bootstrap-3.3.7.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div th:fragment="top">
+       <div class="col-xs-4">
+           <p>运行状态</p>
+           <b id="peerStatu"></b>
+       </div>
+       <div class="col-xs-4">
+           <p>区块数量</p>
+           <b id="blockCount"></b>
+       </div>
+       <div class="col-xs-4">
+           <p>节点数量</p>
+           <b id="peerCount"></b>
+       </div>
+       <!-- script -->
+	   <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	   <script type="text/javascript">
+		   $(function(){
+				$.ajax({
+			        url:"/top",
+			        type:'get',
+			        dataType: "json",
+			        success: function(data){
+						$("#blockCount").html(data.blockNumber);
+						$("#peerCount").html(data.peerCount);
+						$("#peerStatu").html(data.peerStatu)
+			        },
+			        error: function(){
+			        }
+			  });
+		   })
+	   </script>
+   </div>
+</body>
+</html>
